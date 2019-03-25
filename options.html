@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>ezJira Options</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="bootstrap.min.css" />
+      <link rel="stylesheet" href="options.css" />
+   </head>
+   <body>
+      <div class="card">
+         <div class="card-header">
+            Options
+         </div>
+         <div class="card-block">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div class="container">
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 1:</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control form-control-sm" id="value0">
+                  </div>
+                  <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
+                  <div class="col-sm-3">
+                     <input type="text" class="form-control form-control-sm" id="name0">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 2:</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control form-control-sm" id="value1">
+                  </div>
+                  <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
+                  <div class="col-sm-3">
+                     <input type="text" class="form-control form-control-sm" id="name1">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 3:</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control form-control-sm" id="value2">
+                  </div>
+                  <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control form-control-sm" id="name2">
+                   </div>
+                </div>
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 4:</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control form-control-sm" id="value3">
+                  </div>
+                  <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control form-control-sm" id="name3">
+                   </div>
+               </div>
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 5:</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control form-control-sm" id="value4">
+                  </div>
+                  <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control form-control-sm" id="name4">
+                   </div>
+               </div>
+               <div class="form-group row">
+                  <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">JIRA URL:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="jira_url"
+                      placeholder="https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=">
+                    <small class="form-text text-muted">
+                      Please enter your JIRA URL for QuickSearch here. Note that the URL must end with equals sign.
+                      For example: "https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=".
+                      More information about JIRA QuickSearch can be found here: <a href="https://confluence.atlassian.com/jiracoreserver0712/quick-searching-959315930.html">JIRA Quick Search</a>
+                    </small>
+                  </div>
+               </div>
+
+               <div class="form-group row">
+                  <div class="col-sm-2">
+                     <button id="save" class="btn-sm btn-primary">Save</button>
+                  </div>
+                  <small class="col-sm-10" id="status"></small>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="options.js"></script>
+   </body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "manifest_version": 2,
+  "name": "ezJira",
+  "description": "Tools for dealing with JIRA",
+  "version": "0.1",
+  "author": "Thomas Lepack",
+  "icons": {
+    "48": "icon48.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_title": "ezJira",
+    "default_icon": {
+      "16": "icon16.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ],
+  "omnibox": {
+    "keyword": "ezJira"
+  },
+  "commands": {
+    "copy1": {
+      "description": "Copy JIRA Data 1",
+      "suggested_key": {
+        "default": "Alt+Shift+1"
+      }
+    },
+    "copy2": {
+      "description": "Copy JIRA Data 2",
+      "suggested_key": {
+        "default": "Alt+Shift+2"
+      }
+    },
+    "copy3": {
+      "description": "Copy JIRA Data 3",
+      "suggested_key": {
+        "default": "Alt+Shift+3"
+      }
+    },
+    "copy4": {
+      "description": "Copy JIRA Data 4",
+      "suggested_key": {
+        "default": "Alt+Shift+4"
+      }
+    }
+  }
+}
