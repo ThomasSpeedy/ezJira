@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ezJira Options</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css" />
+  <script type="text/javascript" src="popup.js"></script>
+</head>
+
+<body>
+  <div class="vertical-menu" id="history">
+    <a href="#" class="active">Home</a>
+    <a href="#" id=""> Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="https://jira.mercedes-benz.io/browse/OVSNCOS-3834">Link 4</a>
+  </div>
+
+  <div class="vertical-menu">
+    <button type="button" id="ticket-id">Last Ticket</button>
+    <button type="button">Middle</button>
+    <button type="button">Right</button>
+  </div>
+
+  <div class="btn-group">
+    <button>Last Ticket</button>
+    <button>Samsung</button>
+    <button>Sony</button>
+  </div>
+  <strong>Ticket ID</strong>
+  <input type="text" size="5" id="ticket-id" autofocus required />
+
+
+  <form class="quiji-popup-form">
+    <p>
+      <label>
+        <strong>Ticket ID</strong>
+        <input type="text" size="50" class="quiji-ticket-id" id="quiji-ticket-id" autofocus required />
+      </label>
+    </p>
+    <div class="quiji-buttons">
+      <input type="button" value="current tab" class="quiji-current-tab" />
+      <input type="button" value="new tab" class="quiji-new-tab" />
+      <input type="button" value="last ticket" class="quiji-last-ticket" />
+    </div>
+  </form>
+</body>
+
+</html>

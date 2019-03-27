@@ -1,27 +1,29 @@
 'use strict';
 
 const _browser = typeof browser === 'undefined' ? chrome : browser;
-const storage = _browser.storage.sync || _browser.storage.local;
+const _storage = _browser.storage.sync || _browser.storage.local;
 
-// Saves options to chrome.storage
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('save').addEventListener('click', saveOptions);
+
+/**
+ * Save user preferences from document to storage
+ */
 function saveOptions () {
   let options = {
-    jiraUrl: document.getElementById('jira_url').value,
+    jiraQuickSearchUrl: document.getElementById('jira_quick_search_url').value,
+    jiraTicketUrls: document.getElementById('jira_ticket_urls').value,
     formats: []
   };
   console.log('saveOptions', options);
   for (var i = 0; i < 5; i++) {
     options.formats[i] = {
-      //      name: document.getElementById('name0').value,
-      // value: document.getElementById('value0').value
-      // name: `name${i}`,
-      // value: `value${i}`
       name: document.getElementById(`name${i}`).value,
       value: document.getElementById(`value${i}`).value
     }
   };
   console.log('saveOptions', options);
-  storage.set(options, () => {
+  _storage.set(options, () => {
     // Update status to let user know options were saved.
     let status = document.getElementById('status');
     status.textContent = 'Options saved.';
@@ -31,19 +33,18 @@ function saveOptions () {
   });
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
+/**
+ * Load user preferences from storage and set it to document
+ */
 function restoreOptions () {
-  storage.get(null, options => {
-    document.getElementById('jira_url').value = options.jiraUrl ? options.jiraUrl : '';
-    // document.getElementById('name0').value = options.formats[0].name ? options.formats[0].name : '';
-    // document.getElementById('value0').value = options.formats[0].value ? options.formats[0].value : '';
+  _storage.get(null, options => {
+    document.getElementById('jira_quick_search_url').value = options.jiraQuickSearchUrl ? options.jiraQuickSearchUrl : '';
+    document.getElementById('jira_ticket_urls').value = options.jiraTicketUrls ? options.jiraTicketUrls : '';
+
+    // load copy formats
     for (var i = 0; i < 5; i++) {
       document.getElementById(`name${i}`).value = options.formats[i].name ? options.formats[i].name : '';
       document.getElementById(`value${i}`).value = options.formats[i].value ? options.formats[i].value : '';
     }
   });
 }
-
-document.addEventListener('DOMContentLoaded', restoreOptions);
-document.getElementById('save').addEventListener('click', saveOptions);

@@ -5,18 +5,19 @@
   "version": "0.1",
   "author": "Thomas Lepack",
   "icons": {
-    "48": "icon48.png"
+    "48": "icons/icon48.png"
   },
   "background": {
     "scripts": [
-      "background.js"
+      "background/background.js"
     ]
   },
   "browser_action": {
     "default_title": "ezJira",
     "default_icon": {
-      "16": "icon16.png"
-    }
+      "16": "icons/icon16.png"
+    },
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
@@ -24,40 +25,41 @@
         "<all_urls>"
       ],
       "js": [
-        "content.js"
+        "content/content.js"
       ]
     }
   ],
   "options_ui": {
-    "page": "options.html"
+    "page": "options/options.html"
   },
   "permissions": [
     "contextMenus",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "omnibox": {
     "keyword": "ezJira"
   },
   "commands": {
-    "copy1": {
+    "copy 1": {
       "description": "Copy JIRA Data 1",
       "suggested_key": {
         "default": "Alt+Shift+1"
       }
     },
-    "copy2": {
+    "copy 2": {
       "description": "Copy JIRA Data 2",
       "suggested_key": {
         "default": "Alt+Shift+2"
       }
     },
-    "copy3": {
+    "copy 3": {
       "description": "Copy JIRA Data 3",
       "suggested_key": {
         "default": "Alt+Shift+3"
       }
     },
-    "copy4": {
+    "copy 4": {
       "description": "Copy JIRA Data 4",
       "suggested_key": {
         "default": "Alt+Shift+4"
