@@ -1,9 +1,7 @@
 # ezJira
 
-**This add-on injects JavaScript into web pages. The `addons.mozilla.org` domain disallows this operation, so this add-on will not work properly when it's run on pages in the `addons.mozilla.org` domain.**
-
-## Öffnet das JIRA mit dem angegebenen Ticket
 ezJira (pronounced like easy JIRA) has been designed to give you an easier workflow with JIRA and other tools
+
 Statt in der Adresszeile das Ticket aufzurufen, kannst du dies nun in Sekundenschnelle mit einem Klick (oder komplett mit der Tastatur) tun.
 Tippe einfach die Ticket ID ein und bestätige deine Eigabe, um auf die JIRA Seite zu gelangen.
 

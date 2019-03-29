@@ -14,7 +14,6 @@ initialize();
 function initialize () {
   storage.get(null, options => {
     storedOptions = options;
-    createCopyMenus();
     if (debug) console.log('options loaded', storedOptions);
   });
 
@@ -39,24 +38,7 @@ function updateSettings (changes, namespace) {
   for (var key in changes) {
     storedOptions[key] = changes[key].newValue;
   }
-  createCopyMenus();
   if (debug) console.log('settings changed', storedOptions);
-}
-
-/**
- * Open a new tab, and load "my-page.html" into it.
- */
-function createCopyMenus () {
-  _browser.contextMenus.removeAll();
-  storedOptions.formats.forEach((format, index) => {
-    if (format.value !== '') {
-      _browser.contextMenus.create({
-        title: format.name ? `Copy JIRA "${format.name}"` : `Copy JIRA "${index}"`,
-        contexts: ['all'],
-        onclick: (info, tab) => triggerCopyJiraData(index)
-      });
-    }
-  });
 }
 
 /**
@@ -84,8 +66,8 @@ function triggerCopyJiraData (formatIndex) {
  * Send trigger and data to asctive tab
  */
 function sendToTab (trigger, data = null, onResponse = null) {
-  if (debug) console.info(`sendToTab: ${trigger}`, data);
   _browser.tabs.query({ active: true, currentWindow: true }, tabs => {
+    if (debug) console.info(`sendToTab: ${trigger}`, tabs, data);
     _browser.tabs.sendMessage(tabs[0].id, { trigger: trigger, data: data }, onResponse);
   });
 };

@@ -1,6 +1,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  width: 10em;
+  width: 30em;
 }
 
 .title {
@@ -8,35 +8,45 @@ body {
   margin-bottom: 0.5em;
 }
 
-.vertical-menu {
-  width: 100%; /* Set a width if you like */
+.vertical-menu-heading {
+  background-color: lightgray; /* Add a green color to the "active/current" link */
+  color: black;
+  padding: 6px; /* Add some padding */
+  /*width: 100%;*/ /* Set a width if you like */
 }
 
 .vertical-menu a {
-  background-color: #eee; /* Grey background color */
+  background-color: white; /* Grey background color */
   color: black; /* Black text color */
   display: block; /* Make the links appear below each other */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove underline from links */
+  padding: 6px; /* Add some padding */
+/*  text-decoration: none; *//* Remove underline from links */
+white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vertical-menu a:hover {
-  background-color: #ccc; /* Dark grey background on mouse-over */
+  background-color: lightgray; /* Dark grey background on mouse-over */
 }
 
 .vertical-menu a.active {
-  background-color: #4CAF50; /* Add a green color to the "active/current" link */
-  color: white;
+  background-color: lightgray; /* Add a green color to the "active/current" link */
+  color: black;
 }
 
 .vertical-menu button {
-  background-color: #4CAF50; /* Green background */
-  border: 0px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
+  background-color: white; /* Green background */
+  border: 1px solid lightgray; /* Green border */
+  color: black; /* White text */
+  padding: 6px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   width: 100%; /* Set a width if needed */
   display: block; /* Make the buttons appear below each other */
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vertical-menu button:hover {
@@ -44,8 +54,8 @@ body {
 }
 
 .vertical-menu button.active {
-  background-color: #4CAF50; /* Add a green color to the "active/current" link */
-  color: white;
+  background-color: lightgray; /* Add a green color to the "active/current" link */
+  color: black;
 }
 
 .btn-group button {
@@ -65,4 +75,17 @@ body {
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #3e8e41;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: white; /* Grey background color */
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
 }

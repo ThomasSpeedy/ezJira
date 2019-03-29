@@ -4,10 +4,8 @@ const debug = true;
 
 const _browser = typeof browser === 'undefined' ? chrome : browser;
 const _storage = _browser.storage.sync || _browser.storage.local;
-let jiraHistory = [];
 
 _browser.runtime.onMessage.addListener(dispatchCommands);
-loadJiraHistory();
 
 /**
  * Dispatch commands
@@ -24,23 +22,15 @@ function dispatchCommands (msg, sender, respond) {
 };
 
 /**
- * Load jira history
- */
-function loadJiraHistory () {
-  _storage.get(['history'], result => {
-    if (result) {
-      jiraHistory = result;
-    }
-  });
-}
-
-/**
  * Copy Jira data in given format to clipboard
  * @param {string} format - format string
  */
 function copyJiraData (format) {
   const jiraData = getJiraData();
-  if (!jiraData) return;
+  if (!jiraData) {
+    if (debug) console.log(`copyJiraData unable to get jira data`);
+    return;
+  }
   let simpleReplacements = {};
   let replacements = {};
 
@@ -101,8 +91,8 @@ function sanitizeBranchName (text) {
  * @param {*} html
  */
 function copyToClipboard (text, html) {
-  function oncopy (event) {
-    document.removeEventListener("copy", oncopy, true);
+  function onCopy (event) {
+    document.removeEventListener("copy", onCopy, true);
     // Hide the event from the page to prevent tampering.
     event.stopImmediatePropagation();
 
@@ -113,33 +103,12 @@ function copyToClipboard (text, html) {
       html = text;
     }
     event.clipboardData.setData("text/html", html);
+    if (debug) console.log(`copied ${text} to clipboard`);
   }
-  document.addEventListener("copy", oncopy, true);
+  document.addEventListener("copy", onCopy, true);
 
   // Requires the clipboardWrite permission, or a user gesture:
   document.execCommand("copy");
-}
-
-/**
- *
- * @param {*} str
- */
-function copyStringToClipboard (str) {
-  // Create new element
-  var el = document.createElement('textarea');
-  // Set value (string to be copied)
-  el.value = str;
-  // Set non-editable to avoid focus and move outside of view
-  el.setAttribute('readonly', '');
-  el.style = { position: 'absolute', left: '-9999px' };
-  document.body.appendChild(el);
-  // Select text inside element
-  el.select();
-  // Copy text to clipboard
-  document.execCommand('copy');
-  // Remove temporary element
-  document.body.removeChild(el);
-  if (debug) console.log(`copied ${text} to clipboard`);
 }
 
 /**
@@ -149,13 +118,9 @@ function addToJiraHistory () {
   const jiraData = getJiraData();
   if (!jiraData) return;
 
-  _storage.get(['history'], result => {
-    let history = [];
+  _storage.get({ history: [] }, items => {
+    let history = items.history;
     let index;
-
-    if (result.history) {
-      history = result.history;
-    }
 
     // remove this jira ticket if it is already in history
     index = history.findIndex(item => item.url === jiraData.url);

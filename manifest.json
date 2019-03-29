@@ -35,7 +35,8 @@
   "permissions": [
     "contextMenus",
     "storage",
-    "tabs"
+    "tabs",
+    "clipboardWrite"
   ],
   "omnibox": {
     "keyword": "ezJira"
