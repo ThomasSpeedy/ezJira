@@ -5,27 +5,39 @@ const debug = true;
 const _browser = typeof browser === 'undefined' ? chrome : browser;
 const _storage = _browser.storage.sync || _browser.storage.local;
 
-_browser.runtime.onMessage.addListener(dispatchCommands);
+_browser.runtime.onMessage.addListener(dispatchRequest);
 
 /**
  * Dispatch commands
- * @param {*} msg
+ * @param {*} request
  * @param {*} sender
- * @param {*} respond
+ * @param {*} sendResponse
  */
-function dispatchCommands (msg, sender, respond) {
-  if (msg.trigger === 'copyJiraData') {
-    copyJiraData(msg.data);
-  } else if (msg.trigger === 'addToJiraHistory') {
-    addToJiraHistory();
-  };
+function dispatchRequest (request, sender, sendResponse) {
+  switch (request.command) {
+    case 'copyJiraToClipboard':
+      copyJiraToClipboard(request.data);
+      break;
+
+    case 'addToJiraHistory':
+      addToJiraHistory(request.data);
+      break;
+
+    case 'getJiraData':
+      sendResponse(getJiraData(request.data));
+      break;
+
+    default:
+      console.warning(`ezJira: Unknown request ${request.command}`);
+      break;
+  }
 };
 
 /**
  * Copy Jira data in given format to clipboard
  * @param {string} format - format string
  */
-function copyJiraData (format) {
+function copyJiraToClipboard (format) {
   const jiraData = getJiraData();
   if (!jiraData) {
     if (debug) console.log(`copyJiraData unable to get jira data`);
