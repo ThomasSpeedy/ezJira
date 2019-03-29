@@ -122,33 +122,3 @@ function copyToClipboard (text, html) {
   // Requires the clipboardWrite permission, or a user gesture:
   document.execCommand("copy");
 }
-
-/**
- * add the jira issue of the active tab to jira history
- */
-function addToJiraHistory () {
-  const jiraData = getJiraData();
-  if (!jiraData) return;
-
-  _storage.get({ history: [] }, items => {
-    let history = items.history;
-    let index;
-
-    // remove this jira ticket if it is already in history
-    index = history.findIndex(item => item.url === jiraData.url);
-    if (index !== -1) {
-      history.splice(index, 1);
-    }
-
-    // add jira ticket to begin of array
-    history.unshift(jiraData);
-
-    // remove last ticket if history gets to big
-    if (history.length > 10) {
-      history.pop();
-    }
-
-    // save history to storage
-    _storage.set({ history: history });
-  });
-}

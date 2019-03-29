@@ -1,6 +1,6 @@
 # ezJira
 
-ezJira (pronounced like easy JIRA) has been designed to give you an easier workflow with JIRA and other tools
+ezJira (pronounced like easy JIRA) eases the usage of JIRA
 
 Statt in der Adresszeile das Ticket aufzurufen, kannst du dies nun in Sekundenschnelle mit einem Klick (oder komplett mit der Tastatur) tun.
 Tippe einfach die Ticket ID ein und bestätige deine Eigabe, um auf die JIRA Seite zu gelangen.

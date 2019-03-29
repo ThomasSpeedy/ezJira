@@ -11,26 +11,24 @@
 
 <body>
   <div class="vertical-menu">
-    <a href="#" class="active">Open ticket</a>
-    <form class="quiji-popup-form">
+    <a href="#" class="active">Open JIRA ticket</a>
+    <form id="ticket-form">
       <p>
         <label>
           <strong>Ticket ID</strong>
-          <input type="text" size="5" class="quiji-ticket-id" id="quiji-ticket-id" autofocus required />
+          <input type="text" size="5" class="quiji-ticket-id" id="ticket-input" autofocus required />
+          <button class="X">Open</button>
         </label>
       </p>
-      <div class="quiji-buttons">
-        <input type="button" value="current tab" class="quiji-current-tab" />
-        <input type="button" value="new tab" class="quiji-new-tab" />
-        <input type="button" value="last ticket" class="quiji-last-ticket" />
-      </div>
     </form>
-    <button class="dropdown-btn">Jira History
+    <button class="dropdown-btn">Last JIRA tickets
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-container" id="historyMenu">
     </div>
-    <hr>
+    <div>
+      <p></p>
+    </div>
     <div class="vertical-menu-heading">Copy to clipboard</div>
     <div id="copyMenu">
     </div>

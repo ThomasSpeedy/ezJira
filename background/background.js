@@ -7,6 +7,7 @@ const _storage = _browser.storage.sync || _browser.storage.local;
 let store = {
   formats: [],
   history: [],
+  maxHistoryEntries: 15,
   jiraQuickSearchUrl: '',
   jiraTicketUrls: ''
 };

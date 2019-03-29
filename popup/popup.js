@@ -12,28 +12,23 @@ function renderDialog () {
   _storage.get(
     {
       defaultOption: 0,
-      lastTicket: '',
       formats: [],
       history: []
     },
     options => {
       console.log('renderDialog');
-      const form = document.querySelector('.quiji-popup-form');
-      const newButton = document.querySelector('.quiji-new-tab');
-      newButton.newTab = true;
-      const currentButton = document.querySelector('.quiji-current-tab');
-      currentButton.newTab = false;
-
-      const lastTicketButton = createLastTicketButton(options);
-
+      const form = document.getElementById('ticket-form');
       form.addEventListener('submit', handleSubmit);
-      newButton.addEventListener('click', handleSubmit);
-      currentButton.addEventListener('click', handleSubmit);
+
+      // newButton.addEventListener('click', handleSubmit);
+      // currentButton.addEventListener('click', handleSubmit);
 
       // depending on the option attach newTab true or false to submit handler
       form.newTab = !options || options.defaultOption === 0 ? false : true;
 
-      //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+      // Loop through all dropdown buttons to toggle between hiding and showing
+      // its dropdown content - This allows the user to have multiple dropdowns
+      // without any conflict
       var dropdown = document.getElementsByClassName("dropdown-btn");
       var i;
 
@@ -52,7 +47,7 @@ function renderDialog () {
       renderCopy(options.formats);
       renderHistory(options.history);
 
-      setTimeout(() => document.querySelector('.quiji-ticket-id').focus(), 0);
+      setTimeout(() => document.querySelector('#ticket-input').focus(), 0);
     }
   );
 }
@@ -65,7 +60,7 @@ function renderCopy (formats) {
   formats.forEach((format, index) => {
     if (format.value !== '') {
       let element = document.createElement("button");
-      let content = document.createTextNode(format.name ? `Copy JIRA "${format.name}"` : `Copy JIRA "${index}"`);
+      let content = document.createTextNode('Format ' + format.name ? format.name : format.index);
       //      let parent = historyList.parentNode;
       element.formatId = index;
       element.addEventListener('click', handleFormatClick);
@@ -134,39 +129,9 @@ const handleSubmit = event => {
   if (event) {
     event.preventDefault();
   }
-  const ticket = encodeURIComponent(document.querySelector('.quiji-ticket-id').value);
+  const ticket = encodeURIComponent(document.querySelector('#ticket-input').value);
   if (ticket) {
     window.setTimeout(() => window.close(), 1000);
     _browser.extension.getBackgroundPage().openJiraTicket(ticket, event.target.newTab);
   }
 };
-
-/**
- *
- * @param {*} event
- * @param {*} defaultOption
- * @param {*} lastTicket
- */
-const handleLastTicket = (event, defaultOption, lastTicket) => {
-  if (event) {
-    event.preventDefault();
-  }
-  window.setTimeout(() => window.close(), 1000);
-  _browser.extension.getBackgroundPage().openJiraTicket(lastTicket, defaultOption);
-};
-
-/**
- *
- * @param {*} options
- */
-function createLastTicketButton (options) {
-  const lastTicketButton = document.querySelector('.quiji-last-ticket');
-  if (options) {
-    if (!options.lastTicket) {
-      lastTicketButton.disabled = true;
-    } else {
-      lastTicketButton.addEventListener('click', e => handleLastTicket(e, options.defaultOption, options.lastTicket));
-    }
-  }
-  return lastTicketButton;
-}
