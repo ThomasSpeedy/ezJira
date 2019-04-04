@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderDialog () {
   _storage.get(
     {
-      defaultOption: 0,
+      openInNewTab: true,
       formats: [],
       history: []
     },
@@ -24,7 +24,8 @@ function renderDialog () {
       // currentButton.addEventListener('click', handleSubmit);
 
       // depending on the option attach newTab true or false to submit handler
-      form.newTab = !options || options.defaultOption === 0 ? false : true;
+      document.getElementById('open-in-new-tab').checked = options.openInNewTab;
+      form.newTab = !options || options.openInNewTab;
 
       // Loop through all dropdown buttons to toggle between hiding and showing
       // its dropdown content - This allows the user to have multiple dropdowns

@@ -8,6 +8,45 @@ body {
   margin-bottom: 0.5em;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background: #2196F3;
+  color: white;
+}
+
+button:hover {
+  background: #0b7dda;
+}
+
+/* Style the search field */
+form.search-button input[type=text] {
+  padding: 10px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: white;
+}
+
+/* Style the submit button */
+form.search-button button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+/* Clear floats */
+form.search-button::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .vertical-menu-heading {
   background-color: lightgray; /* Add a green color to the "active/current" link */
   color: black;
@@ -16,18 +55,18 @@ body {
 }
 
 .vertical-menu a {
-  background-color: white; /* Grey background color */
+  background-color: white;
   color: black; /* Black text color */
   display: block; /* Make the links appear below each other */
   padding: 6px; /* Add some padding */
-/*  text-decoration: none; *//* Remove underline from links */
-white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .vertical-menu a:hover {
-  background-color: lightgray; /* Dark grey background on mouse-over */
+  background: #0b7dda;
+  color: white;
 }
 
 .vertical-menu a.active {
@@ -36,9 +75,7 @@ white-space: nowrap;
 }
 
 .vertical-menu button {
-  background-color: white; /* Green background */
   border: 1px solid lightgray; /* Green border */
-  color: black; /* White text */
   padding: 6px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   width: 100%; /* Set a width if needed */
@@ -49,39 +86,11 @@ white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.vertical-menu button:hover {
-  background-color: #ccc; /* Dark grey background on mouse-over */
-}
-
-.vertical-menu button.active {
-  background-color: lightgray; /* Add a green color to the "active/current" link */
-  color: black;
-}
-
-.btn-group button {
-  background-color: #4CAF50; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  width: 100%; /* Set a width if needed */
-  display: block; /* Make the buttons appear below each other */
-}
-
-.btn-group button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #3e8e41;
-}
-
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
-  background-color: white; /* Grey background color */
-  padding-left: 8px;
+  background-color: white;
+  padding-left: 0px;
 }
 
 /* Optional: Style the caret down icon */

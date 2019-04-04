@@ -47,6 +47,16 @@ function updateSettings (changes, namespace) {
   for (var key in changes) {
     store[key] = changes[key].newValue;
   }
+
+  // remove last tickets if history is bigger then max size
+  if (store.history.length > store.maxHistoryEntries) {
+    while (store.history.length > store.maxHistoryEntries) {
+      store.history.pop();
+    }
+    // save history to storage
+    _storage.set({ history: store.history });
+  }
+
   if (debug) console.log('settings changed', store, namespace);
 }
 
@@ -124,7 +134,7 @@ function addToJiraHistory (jiraData) {
 
   // remove this jira ticket if it is already in history
   index = store.history.findIndex(item => item.url === jiraData.url);
-  if (index !== -1) {
+  if (index > -1) {
     store.history.splice(index, 1);
   }
 
@@ -132,7 +142,7 @@ function addToJiraHistory (jiraData) {
   store.history.unshift(jiraData);
 
   // remove last ticket if history gets to big
-  if (store.history.length > 10) {
+  if (store.history.length > store.maxHistoryEntries) {
     store.history.pop();
   }
 

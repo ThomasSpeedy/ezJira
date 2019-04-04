@@ -13,6 +13,8 @@ function saveOptions () {
   let options = {
     jiraQuickSearchUrl: document.getElementById('jira_quick_search_url').value,
     jiraTicketUrls: document.getElementById('jira_ticket_urls').value,
+    maxHistoryEntries: document.getElementById('max-history-entries').value,
+    openInNewTab: document.getElementById('open-in-new-tab').checked,
     formats: []
   };
   console.log('saveOptions', options);
@@ -24,12 +26,7 @@ function saveOptions () {
   };
   console.log('saveOptions', options);
   _storage.set(options, () => {
-    // Update status to let user know options were saved.
-    let status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function () {
-      status.textContent = '';
-    }, 750);
+    window.setTimeout(() => window.close(), 100);
   });
 }
 
@@ -37,9 +34,38 @@ function saveOptions () {
  * Load user preferences from storage and set it to document
  */
 function restoreOptions () {
-  _storage.get(null, options => {
+  _storage.get({
+    formats: [
+      {
+        name: 'default',
+        value: '[%Issue%] %Description%'
+      },
+      {
+        name: 'default + url',
+        value: '[%Issue%] %Description% (%Url%)'
+      },
+      {
+        name: '%branchname%',
+        value: 'branchname'
+      },
+      {
+        name: 'feat commit msg',
+        value: 'feat(%Issue%): %description%'
+      },
+      {
+        name: 'html',
+        value: '<a href="%Url%">[%Issue%] %Description%</a>'
+      },
+    ],
+    maxHistoryEntries: 15,
+    jiraQuickSearchUrl: '',
+    jiraTicketUrls: '',
+    openInNewTab: true
+  }, options => {
     document.getElementById('jira_quick_search_url').value = options.jiraQuickSearchUrl ? options.jiraQuickSearchUrl : '';
     document.getElementById('jira_ticket_urls').value = options.jiraTicketUrls ? options.jiraTicketUrls : '';
+    document.getElementById('max-history-entries').value = options.maxHistoryEntries ? options.maxHistoryEntries : '';
+    document.getElementById('open-in-new-tab').checked = options.openInNewTab ? options.openInNewTab : false;
 
     // load copy formats
     for (var i = 0; i < 5; i++) {

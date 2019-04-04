@@ -4,103 +4,119 @@
 <head>
   <title>ezJira Options</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="bootstrap.min.css" />
   <link rel="stylesheet" href="options.css" />
 </head>
 
 <body>
-  <div class="card">
-    <div class="card-header">
-      Options
-    </div>
-    <div class="card-block">
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <div class="container">
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 1:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" id="value0">
-          </div>
-          <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" id="name0">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 2:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" id="value1">
-          </div>
-          <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" id="name1">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 3:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" id="value2">
-          </div>
-          <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" id="name2">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 4:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" id="value3">
-          </div>
-          <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" id="name3">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Format 5:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" id="value4">
-          </div>
-          <label for="smFormGroupInput" class="col-sm-1 col-form-label col-form-label-sm">Name:</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" id="name4">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">JIRA Quick Search URL:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" id="jira_quick_search_url"
-              placeholder="https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=">
-            <small class="form-text text-muted">
-              Please enter your JIRA URL for QuickSearch here. Note that the URL must end with equals sign.
-              For example: "https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=".
-              More information about JIRA QuickSearch can be found here: <a
-                href="https://confluence.atlassian.com/jiracoreserver0712/quick-searching-959315930.html">JIRA Quick
-                Search</a>
-            </small>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">JIRA Ticket URLs:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" id="jira_ticket_urls"
-              placeholder="https://jira.atlassian.com/browse/">
-            <small class="form-text text-muted">
-              Please enter the first part of JIRA URLs that should be watched for the ticket history. If your ticket's
-              URLS is for example https://jira.atlassian.com/browse/XXXX-4711, then you should enter here
-              https://jira.atlassian.com/browse/. More than one URL can be entered und have to be separated by comma.
-            </small>
-          </div>
-        </div>
+  <div class="container">
+    <h3>Copy formats</h3>
 
-        <div class="form-group row">
-          <div class="col-sm-2">
-            <button id="save" class="btn-sm btn-primary">Save</button>
-          </div>
-          <small class="col-sm-10" id="status"></small>
-        </div>
+    <div class="row">
+      <div class="col-7">Format
+      </div>
+      <div class="col-5">Name
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-7">
+        <input type="text" id="value0" name="value0">
+      </div>
+      <div class="col-5">
+        <input type="text" id="name0" name="name0">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <input type="text" id="value1" name="value1">
+      </div>
+      <div class="col-5">
+        <input type="text" id="name1" name="name1">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <input type="text" id="value2" name="value2">
+      </div>
+      <div class="col-5">
+        <input type="text" id="name2" name="name2">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <input type="text" id="value3" name="value3">
+      </div>
+      <div class="col-5">
+        <input type="text" id="name3" name="name3">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7">
+        <input type="text" id="value4" name="value4">
+      </div>
+      <div class="col-5">
+        <input type="text" id="name4" name="name4">
+      </div>
+    </div>
+
+    <br />
+
+    <h3>JIRA history</h3>
+
+    <div class="row">
+      <div class="col-2">
+        <label for="jira_quick_search_url">QuickSearch URL:</label>
+      </div>
+      <div class="col-10">
+        <input type="text" name="jira_quick_search_url" id="jira_quick_search_url"
+          placeholder="https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=">
+        <small>
+          Please enter your JIRA URL for QuickSearch here. Note that the URL must end with equals sign.
+          For example: "https://jira.atlassian.com/secure/QuickSearch.jspa?searchString=".
+          More information about JIRA QuickSearch can be found here: <a
+            href="https://confluence.atlassian.com/jiracoreserver0712/quick-searching-959315930.html">JIRA Quick
+            Search</a>
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+        <label for="jira_ticket_urls">Ticket URLs:</label>
+      </div>
+      <div class="col-10">
+        <input type="text" name="jira_ticket_urls" id="jira_ticket_urls"
+          placeholder="https://jira.atlassian.com/browse/">
+        <small>
+          Please enter the first part of JIRA URLs that should be watched for the ticket history. If your ticket's
+          URLS is for example https://jira.atlassian.com/browse/XXXX-4711, then you should enter here
+          https://jira.atlassian.com/browse/. More than one URL can be entered und have to be separated by comma.
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+        <label for="max-history-entries">History size:</label>
+      </div>
+      <div class="col-1">
+        <input type="text" id="max-history-entries" name="max-history-entries">
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="checkbox" id="open-in-new-tab"> Open tickets in new tab
+    </div>
+  </div>
+
+  <p></p>
+
+  <div class="row">
+    <input type="submit" value="Save" class="btn" id="save">
   </div>
   <script src="options.js"></script>
 </body>
