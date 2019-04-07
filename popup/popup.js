@@ -16,123 +16,125 @@ function renderDialog () {
       history: []
     },
     options => {
-      console.log('renderDialog');
-      const form = document.getElementById('ticket-form');
-      form.addEventListener('submit', handleSubmit);
-
-      // newButton.addEventListener('click', handleSubmit);
-      // currentButton.addEventListener('click', handleSubmit);
-
-      // depending on the option attach newTab true or false to submit handler
+      document.getElementById('ticket-form').addEventListener('submit', handleSubmit);
+      document.getElementById('btn-open-ticket').addEventListener('submit', handleSubmit);
       document.getElementById('open-in-new-tab').checked = options.openInNewTab;
-      form.newTab = !options || options.openInNewTab;
 
-      // Loop through all dropdown buttons to toggle between hiding and showing
-      // its dropdown content - This allows the user to have multiple dropdowns
-      // without any conflict
-      var dropdown = document.getElementsByClassName("dropdown-btn");
-      var i;
+      renderCopyMenu(options.formats);
+      renderHistoryMenu(options.history);
 
-      for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-          this.classList.toggle("active");
-          var dropdownContent = this.nextElementSibling;
-          if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
-          } else {
-            dropdownContent.style.display = "block";
-          }
-        });
-      }
+      setupDropdownButtons();
 
-      renderCopy(options.formats);
-      renderHistory(options.history);
-
+      // set focus to ticket input
       setTimeout(() => document.querySelector('#ticket-input').focus(), 0);
     }
   );
 }
 
 /**
- * Open a new tab, and load "my-page.html" into it.
+ * Open jira ticket
+ * @param {*} event - click event
  */
-function renderCopy (formats) {
-  var historyList = document.getElementById('copyMenu');
-  formats.forEach((format, index) => {
-    if (format.value !== '') {
-      let element = document.createElement("button");
-      let content = document.createTextNode('Format ' + format.name ? format.name : format.index);
-      //      let parent = historyList.parentNode;
-      element.formatId = index;
-      element.addEventListener('click', handleFormatClick);
-      element.appendChild(content);
-      historyList.appendChild(element);
-    }
-  });
-}
-
-
-/**
- *
- * @param {*} event
- */
-const handleFormatClick = event => {
-  if (event) {
-    event.preventDefault();
-  }
-  window.setTimeout(() => window.close(), 100);
-  _browser.extension.getBackgroundPage().triggerCopyJiraData(event.target.formatId);
-};
-
-/**
- *
- */
-function renderHistory (history) {
-  // //set the header of the panel
-  // var activeTabUrl = document.getElementById('header-title');
-  // var text = document.createTextNode("Cookies at: " + tab.title);
-  // var cookieList = document.getElementById('history');
-  // activeTabUrl.appendChild(text);
-
-  // if (cookies.length > 0) {
-  //   //add an <li> item with the name and value of the cookie to the list
-  //   for (let cookie of cookies) {
-  //     let li = document.createElement("li");
-  //     let content = document.createTextNode(cookie.name + ": " + cookie.value);
-  //     li.appendChild(content);
-  //     cookieList.appendChild(li);
-  //   }
-  // } else {
-  //   let p = document.createElement("p");
-  //   let content = document.createTextNode("No cookies in this tab.");
-  //   let parent = cookieList.parentNode;
-
-  //   p.appendChild(content);
-  //   parent.appendChild(p);
-  // }
-
-  var historyList = document.getElementById('historyMenu');
-  history.forEach(item => {
-    let element = document.createElement("a");
-    let content = document.createTextNode(`[${item.issue}] ${item.description}`);
-    element.setAttribute('href', item.url);
-    element.setAttribute('target', '_blank');
-    element.appendChild(content);
-    historyList.appendChild(element);
-  });
-}
-
-/**
- *
- * @param {*} event
- */
-const handleSubmit = event => {
+function handleSubmit (event) {
   if (event) {
     event.preventDefault();
   }
   const ticket = encodeURIComponent(document.querySelector('#ticket-input').value);
   if (ticket) {
     window.setTimeout(() => window.close(), 1000);
-    _browser.extension.getBackgroundPage().openJiraTicket(ticket, event.target.newTab);
+    _browser.extension.getBackgroundPage().openJiraTicket(ticket, openInNewTab());
   }
-};
+}
+
+/**
+ * Returns if a ticket should be opened in new or in active tab
+ * @return {boolean} returns true if ticket should be openend in new
+ * tab; otherwise false
+ */
+function openInNewTab () {
+  return document.getElementById('open-in-new-tab').checked;
+}
+
+/**
+ * Loop through all dropdown buttons to toggle between hiding and showing
+ * its dropdown content - This allows the user to have multiple dropdowns
+ * without any conflict
+ */
+function setupDropdownButtons () {
+  let dropdown = document.getElementsByClassName("dropdown-btn");
+
+  for (let i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+}
+
+/**
+ * Render array with copy formats as buttons into copyMenu
+ * @param {Object[]} formats - Array with copy formats
+ */
+function renderCopyMenu (formats) {
+  let copyMenu = document.getElementById('copyMenu');
+  formats.forEach((format, index) => {
+    if (format.value !== '') {
+      let element = document.createElement("button");
+      let content = document.createTextNode('Format ' + format.name ? format.name : format.index);
+      element.formatId = index;
+      element.addEventListener('click', handleCopyClick);
+      element.appendChild(content);
+      copyMenu.appendChild(element);
+    }
+  });
+}
+
+/**
+ * Trigger copy of jira data into clipboard
+ * @param {*} event - click event
+ */
+function handleCopyClick (event) {
+  if (event) {
+    event.preventDefault();
+  }
+  window.setTimeout(() => window.close(), 100);
+  _browser.extension.getBackgroundPage().triggerCopyJiraData(event.target.formatId);
+}
+
+/**
+ * Render array with recently opened jira tickets as hyperlinks
+ * into dropdown menu historyMenu
+ * @param {Object[]} history - Array with recently opened jia tickets
+ */
+function renderHistoryMenu (history) {
+  let historyMenu = document.getElementById('historyMenu');
+  history.forEach(item => {
+    let element = document.createElement("a");
+    let content = document.createTextNode(`[${item.issue}] ${item.description}`);
+    element.setAttribute('href', item.url);
+
+    element.appendChild(content);
+    element.addEventListener('click', handleHistoryClick);
+    historyMenu.appendChild(element);
+  });
+}
+
+/**
+ * Open the url either in same or in a new tab. This has to be done
+ * with function openUrl or background.js because 'target'='_self'
+ * does not work in a popup
+ * @param {*} event - click event
+ */
+function handleHistoryClick (event) {
+  if (event) {
+    event.preventDefault();
+  }
+  window.setTimeout(() => window.close(), 100);
+  _browser.extension.getBackgroundPage().openUrl(
+    event.target.attributes.getNamedItem('href').value, openInNewTab());
+}

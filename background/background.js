@@ -5,11 +5,33 @@ const debug = true;
 const _browser = typeof browser === 'undefined' ? chrome : browser;
 const _storage = _browser.storage.sync || _browser.storage.local;
 let store = {
-  formats: [],
+  formats: [
+    {
+      name: 'default',
+      value: '[%Issue%] %Description%'
+    },
+    {
+      name: 'default + url',
+      value: '[%Issue%] %Description% (%Url%)'
+    },
+    {
+      name: '%branchname%',
+      value: 'branchname'
+    },
+    {
+      name: 'feat commit msg',
+      value: 'feat(%Issue%): %description%'
+    },
+    {
+      name: 'html',
+      value: '<a href="%Url%">[%Issue%] %Description%</a>'
+    },
+  ],
   history: [],
   maxHistoryEntries: 15,
   jiraQuickSearchUrl: '',
-  jiraTicketUrls: ''
+  jiraTicketUrls: '',
+  openInNewTab: true
 };
 
 initialize();
@@ -69,7 +91,7 @@ function handleCommand (command) {
     let words = text.split(' ');
     triggerCopyJiraData(words[1]);
   } else {
-    openJiraTicket(command);
+    openJiraTicket(command, store.openInNewTab);
   }
 }
 
@@ -97,11 +119,27 @@ function sendToTab (command, data = null, onResponse = null) {
 };
 
 /**
- * Open jira ticket in new tab
+ * Open jira ticket
  * @param {*} issue
  */
-function openJiraTicket (issue) {
-  _browser.tabs.create({ "url": store.jiraQuickSearchUrl + issue });
+function openJiraTicket (issue, openInNewTab) {
+  debugger;
+  openUrl(store.jiraQuickSearchUrl + issue, openInNewTab)
+}
+
+/**
+ * Open an url in active or new tab
+ * @param {*} url
+ * @param {boolean} openInNewTab
+ */
+function openUrl (url, openInNewTab) {
+  _browser.tabs.query({ active: true, currentWindow: true }, tabs => {
+    if (openInNewTab) {
+      _browser.tabs.create({ openerTabId: tabs[0].id, index: tabs[0].index + 1, url: url });
+    } else {
+      _browser.tabs.update(tabs[0].id, { url: url });
+    }
+  });
 }
 
 /**
